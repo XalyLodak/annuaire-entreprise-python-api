@@ -144,7 +144,6 @@ class Departements:
         "93": "Seine-Saint-Denis",
         "94": "Val-de-Marne",
         "95": "Val-d'Oise",
-        # Outre-mer
         "971": "Guadeloupe",
         "972": "Martinique",
         "973": "Guyane",
@@ -158,11 +157,11 @@ class Departements:
         return cls._data.get(code)
 
     @classmethod
-    def get_by_departement(cls, departement: str) -> str | None:
+    def get_by_name(cls, name: str) -> str | None:
         """Retourne le code du département à partir du nom.
         Cherche aussi par proximité si aucune correspondance exacte.
         """
-        departement = departement.lower()
+        departement = name.lower()
         # Recherche exacte
         for code, name in cls._data.items():
             if name.lower() == departement:
