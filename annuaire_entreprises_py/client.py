@@ -176,3 +176,47 @@ class Departements:
                 if name == close[0]:
                     return code
         return None
+    
+class Region:
+    _data = {
+        "01": "Guadeloupe",
+        "02": "Martinique",
+        "03": "Guyane",
+        "04": "La Réunion",
+        "05": "Mayotte",
+        "11": "Île-de-France",
+        "24": "Centre-Val de loire",
+        "27": "Bourgogne-Franche-Comté",
+        "28": "Normandie",
+        "32": "Hauts-de-France",
+        "44": "Grand-Est",
+        "52": "Pays de la loire",
+        "53": "Bretagne",
+        "75": "Nouvelle Aquitaine",
+        "76": "Occitanie",
+        "84": "Auvergne-Rhône-Alpes",
+        "93": "Provence-Alpes-Côte d'Azur",
+        "94": "Corse",
+    }
+
+    @classmethod
+    def get_by_code(cls, code:int) -> str :
+        return cls._data.get(code)
+    
+    @classmethod
+    def get_by_name(cls, name:str) -> str :
+        region = name.lower()
+        # Recherche exacte
+        for code, name in cls._data.items():
+            if name.lower() == region:
+                return code
+
+        # Recherche par proximité (fuzzy)
+        names = [name for name in cls._data.values()]
+        close = get_close_matches(region, names, n=1, cutoff=0.6)
+        if close:
+            # Retourne le code correspondant au nom proche trouvé
+            for code, name in cls._data.items():
+                if name == close[0]:
+                    return code
+        return None
