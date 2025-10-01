@@ -3,7 +3,7 @@ from requests import Session
 
 class AnnuaireEntreprisesGet:
     """Client pour l'API Annuaire Entreprises (API.gouv.fr)."""
-    __version__ = "0.2.1"
+    __version__ = "0.2.2"
     BASE_URL = "https://recherche-entreprises.api.gouv.fr/search"
     
     def __init__(self, session=None):

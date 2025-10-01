@@ -1,3 +1,3 @@
-from .client import AnnuaireEntreprisesGet, Departements
+from .client import AnnuaireEntreprisesGet, Departements, Region
 
-__all__ = ["AnnuaireEntreprisesGet", "Departements"]
+__all__ = ["AnnuaireEntreprisesGet", "Departements", "Region"]

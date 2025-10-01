@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "annuaire_entreprises_py"
-version = "0.2.1"
+version = "0.2.2"
 description = "Client Python pour l'API Recherche d'Entreprises (https://www.data.gouv.fr/dataservices/api-recherche-dentreprises/)"
 readme = "README.md"
 authors = [{name = "Quentin DUTEIL", email = "quentinduteil@xalystudio.fr"}]
