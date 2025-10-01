@@ -1,8 +1,9 @@
 from difflib import get_close_matches
 from requests import Session
+
 class AnnuaireEntreprisesGet:
     """Client pour l'API Annuaire Entreprises (API.gouv.fr)."""
-    
+    __version__ = "0.2.1"
     BASE_URL = "https://recherche-entreprises.api.gouv.fr/search"
     
     def __init__(self, session=None):
@@ -46,6 +47,9 @@ class AnnuaireEntreprisesGet:
         params.setdefault("per_page", self.default_per_page)
 
         return self._get(params)
+
+    def version(cls):
+        return cls.__version__
 
 class Departements:
     _data = {
