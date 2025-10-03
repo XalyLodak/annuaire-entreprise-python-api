@@ -1,9 +1,11 @@
 from difflib import get_close_matches
+from importlib import resources
 from requests import Session
+from csv import DictReader
 
 class AnnuaireEntreprisesGet:
     """Client pour l'API Annuaire Entreprises (API.gouv.fr)."""
-    __version__ = "0.2.3"
+    __version__ = "0.2.4"
     BASE_URL = "https://recherche-entreprises.api.gouv.fr/search"
     
     def __init__(self, session=None):
@@ -226,3 +228,35 @@ class Region:
                 if name == close[0]:
                     return code
         return None
+
+class Communes:
+    @staticmethod
+    def get_by_code(code: str) -> str | None:
+        """Retourne le nom de la commune à partir du code INSEE à 5 chiffres."""
+        with resources.open_text("annuaire_entreprises_py.data", "v_commune_2025.csv", encoding="utf-8") as f:
+            reader_csv = DictReader(f)
+            for row in reader_csv:
+                if row["COM"] == code:
+                    return row["LIBELLE"]
+        return "Ville inexistante"
+
+    @staticmethod
+    def get_by_name(name: str) -> str | None:
+        """Retourne le code INSEE à 5 chiffres à partir du nom de la commune.
+        Fuzzy search si aucune correspondance exacte.
+        """
+        name_lower = name.lower()
+        with resources.open_text("annuaire_entreprises_py.data", "v_commune_2025.csv", encoding="utf-8") as f:
+            reader_csv = DictReader(f)
+            names = {row["LIBELLE"]: row["COM"] for row in reader_csv}
+
+        # Correspondance exacte
+        for nom, code in names.items():
+            if nom.lower() == name_lower:
+                return code
+
+        # Recherche fuzzy
+        close = get_close_matches(name_lower, [nom.lower() for nom in names.keys()], n=1, cutoff=0.6)
+        if close:
+            return names[close[0].title()]
+        return "Ville inexistante"
