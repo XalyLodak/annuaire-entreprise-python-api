@@ -5,7 +5,7 @@ from csv import DictReader
 
 class AnnuaireEntreprisesGet:
     """Client pour l'API Annuaire Entreprises (API.gouv.fr)."""
-    __version__ = "0.2.4"
+    __version__ = "0.2.5"
     BASE_URL = "https://recherche-entreprises.api.gouv.fr/search"
     
     def __init__(self, session=None):
@@ -40,8 +40,8 @@ class AnnuaireEntreprisesGet:
             "departement": "departement",
             "region": "region",
             "commune": "code_commune",
-            "page": "nb_pages",
-            "per_page": "nb_par_pages",
+            "page": "page",
+            "per_page": "per_page",
             "q": "q"
         }
 
