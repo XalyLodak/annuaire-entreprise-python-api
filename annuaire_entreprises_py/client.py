@@ -3,11 +3,13 @@ from requests import Session
 
 class AnnuaireEntreprisesGet:
     """Client pour l'API Annuaire Entreprises (API.gouv.fr)."""
-    __version__ = "0.2.2"
+    __version__ = "0.2.3"
     BASE_URL = "https://recherche-entreprises.api.gouv.fr/search"
     
     def __init__(self, session=None):
         self.session = session or Session()
+        self.default_page = 1
+        self.default_per_page = 25
     
     def _get(self, params:dict, format:str="dict") -> dict:
         """Effectue une requête GET et retourne le JSON."""
